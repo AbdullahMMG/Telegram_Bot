@@ -3,74 +3,43 @@
 final class Message
 {
     private $messageId; ///< Integer	Unique message identifier
-    private $from; ///< Optional. Sender, can be empty for messages sent to channels
-    private $date; ///< Optional. Date the message was sent in Unix time
-    private $chat; ///< Conversation the message belongs to
-    private $forwardFrom; ///< Optional. For forwarded messages, sender of the original message
-    private $forwardFromChat; ///< Optional. For messages forwarded from a channel, information about the original channel
-    private $forwardDate; ///< Optional. For forwarded messages, date the original message was sent
-    private $text; ///< Optional. For text messages, the actual UTF-8 text of the message
-        /**
-         * Optional. For text messages, special entities like usernames, URLs,
-         * bot commands, etc. that appear in the text
-         */
-    private $entities;
-    private $audio; ///< Optional. Message is an audio file, information about the file
-    private $document; ///< Optional. Message is a general file, information about the file
-    private $photo; ///< Optional. Message is a photo, available sizes of the photo
-    private $sticker; ///< Optional. Message is a sticker, information about the sticker
-    private $video; ///< Optional. Message is a video, information about the video
-    private $contact; ///< Optional. Message is a shared contact, information about the contact
-    private $location; ///< Optional. Message is a shared location, information about the location
-    private $venue; ///< Optional. Message is a venue, information about the venue
-    private $pinnedMessage; ///< Optional. Specified message was pinned. Note that the Message object in this field will not contain further reply_to_message fields even if it is itself a reply.
-    private $newChatMembers; ///< Optional. New members were added to the group or supergroup, information about them (the bot itself may be one of these members)
+    private $from; ///< User. Optional. Sender, can be empty for messages sent to channels
+    private $date; ///<	Integer. Optional. Date the message was sent in Unix time
+    private $chat; ///< Chat. Conversation the message belongs to
+    private $forwardFrom; ///< User. Optional. For forwarded messages, sender of the original message
+    private $forwardFromChat; ///< Chat. Optional. For messages forwarded from a channel, information about the original channel
+    private $forwardFromMessageId; ///< Integer. Optional. For forwarded channel posts, identifier of the original message in the channel
+    private $forwardDate; ///< Integer. Optional. For forwarded messages, date the original message was sent
+    private $replyToMessage; ///< Message. Optional. For replies, the original message. Note that the Message object in this field will not contain further reply_to_message fields even if it itself is a reply.
+    private $editDate; ///< Integer. Optional. Date the message was last edited in Unix time
+    private $text; ///< String. Optional. For text messages, the actual UTF-8 text of the message
+    private $entities;///< Array of MessageEntity. Optional. For text messages, special entities like usernames, URLs, bot commands, etc. that appear in the text
+    private $audio; ///< 	Audio. Optional. Message is an audio file, information about the file
+    private $document; ///< Document. Optional. Message is a general file, information about the file
+    private $game; ///< Game. Optional. Message is a game, information about the game
+    private $photo; ///< Array of PhotoSize. Optional. Message is a photo, available sizes of the photo
+    private $sticker; ///< Sticker. Optional. Message is a sticker, information about the sticker
+    private $video; ///< Video. Optional. Message is a video, information about the video
+    private $voice; ///< Voice. Optional. Message is a voice message, information about the file
+    private $videoNote; ///< VideoNote Optional. Message is a video note, information about the video message
+    private $newChatMembers; ///< Array of User. Optional. New members were added to the group or supergroup, information about them (the bot itself may be one of these members)
+    private $caption; ///< String. Optional. Caption for the document, photo or video, 0-200 characters
+    private $contact; ///< Contact. Optional. Message is a shared contact, information about the contact
+    private $location; ///< Location. Optional. Message is a shared location, information about the location
+    private $venue; ///< Venue. Optional. Message is a venue, information about the venue
+    private $newChatMember; ///< User. Optional. A new member was added to the group, information about them (this member may be the bot itself)
     private $leftChatMember; ///< Optional. A member was removed from the group, information about them (this member may be bot itself)
-    private $newChatTitle; ///< Optional. A chat title was changed to this value
-    private $newChatPhoto; ///< Optional. A chat photo was change to this value
-    private $deleteChatPhoto; ///< Optional. Informs that the chat photo was deleted
-    private $groupchatCreated; ///< Optional. Informs that the group has been created
-    private $replyToMessage;
-    private $voice; ///< Optional. Message is a voice message, information about the file
-    private $caption; ///< Optional. Caption for the document, photo or video, 0-200 characters
-        /**
-         * Optional. Service message: the supergroup has been created.
-         * This field can‘t be received in a message coming through updates,
-         * because bot can’t be a member of a supergroup when it is created.
-         * It can only be found in reply_to_message
-         * if someone replies to a very first message in a directly created supergroup.
-         */
-    private $superGroupCreated;
-        /**
-         * Optional. Service message: the channel has been created.
-         * This field can‘t be received in a message coming through updates,
-         * because bot can’t be a member of a channel when it is created.
-         * It can only be found in reply_to_message if someone
-         * replies to a very first message in a channel.
-         */
-    private $channelChatCreated;
-        /**
-         * Optional. The group has been migrated to a supergroup with the specified identifier.
-         * This number may be greater than 32 bits and some programming languages
-         * may have difficulty/silent defects in interpreting it.
-         * But it smaller than 52 bits, so a signed 64 bit integer or double-precision
-         * float type are safe for storing this identifier.
-         */
-    private $migrateToChatId; ///< Optional. The chat has been migrated to a chat with specified identifier, not exceeding 1e13 by absolute value
-        /**
-         * Optional. The supergroup has been migrated from a group with the specified identifier.
-         * This number may be greater than 32 bits and some programming languages
-         * may have difficulty/silent defects in interpreting it.
-         * But it smaller than 52 bits, so a signed 64 bit integer or double-precision
-         * float type are safe for storing this identifier.
-         */
-    private $migrateFromChatId; ///< Optional. The chat has been migrated from a chat with specified identifier, not exceeding 1e13 by absolute value
-    private $editDate; ///< Optional. Date the message was last edited in Unix time
-    private $game; ///< Optional. Message is a game, information about the game
-    private $forwardFromMessageId; ///< Optional. For forwarded channel posts, identifier of the original message in the channel
-    private $invoice; ///< Optional. Message is an invoice for a payment, information about the invoice.
+    private $newChatTitle; ///< String. Optional. A chat title was changed to this value
+    private $newChatPhoto; ///< Array of PhotoSize. Optional. A chat photo was change to this value
+    private $deleteChatPhoto; ///< True. Optional. Informs that the chat photo was deleted
+    private $groupchatCreated; ///< True. Optional. Informs that the group has been created
+    private $superGroupCreated;///< True. Optional. Service message: the supergroup has been created. This field can‘t be received in a message coming through updates, because bot can’t be a member of a supergroup when it is created. It can only be found in reply_to_message if someone replies to a very first message in a directly created supergroup.
+    private $channelChatCreated;///< True. Optional. Service message: the channel has been created. This field can‘t be received in a message coming through updates, because bot can’t be a member of a channel when it is created. It can only be found in reply_to_message if someone replies to a very first message in a channel.
+    private $migrateToChatId; ///< Integer. Optional. The chat has been migrated to a chat with specified identifier, not exceeding 1e13 by absolute value
+    private $migrateFromChatId; ///< Integer. Optional. The chat has been migrated from a chat with specified identifier, not exceeding 1e13 by absolute value
+    private $pinnedMessage; ///< Optional. Specified message was pinned. Note that the Message object in this field will not contain further reply_to_message fields even if it is itself a reply.
+    private $invoice; ///< Invoice. Optional. Message is an invoice for a payment, information about the invoice.
     private $successfulPayment; ///< Optional. Message is a service message about a successful payment, information about the payment.
-    private $videoNote; ///< Optional. Message is a video note, information about the video message
 
     public function __construct(){
     }
