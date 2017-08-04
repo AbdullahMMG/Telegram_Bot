@@ -104,10 +104,7 @@ final class Message
     }
 
     public function getEntities(){
-        if (entities != null) {
-            entities .forEach(x->x . computeText(text));
-        }
-        return entities;
+
     }
 
     public function getAudio(){
@@ -227,16 +224,7 @@ final class Message
     }
 
     public function isCommand(){
-        if ($this->hasText() && $this->entities != null) {
-            for (MessageEntity entity : entities) {
-                if (entity != null && entity . getOffset() == 0 &&
-                    EntityType . BOTCOMMAND . equals(entity . getType())
-                ) {
-                    return true;
-                }
-            }
-        }
-        return false;
+
     }
 
     public function hasDocument(){
