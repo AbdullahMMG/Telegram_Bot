@@ -53,23 +53,23 @@ final class Message
     }
 
     public function getDate(){
-        return date;
+        return $this->date;
     }
 
     public function getChat(){
-        return chat;
+        return $this->chat;
     }
 
     public function getForwardFrom(){
-        return forwardFrom;
+        return $this->forwardFrom;
     }
 
     public function getForwardDate(){
-        return forwardDate;
+        return $this->forwardDate;
     }
 
     public function getText(){
-        return text;
+        return $this->text;
     }
 
     public function getEntities(){
@@ -77,91 +77,91 @@ final class Message
     }
 
     public function getAudio(){
-        return audio;
+        return $this->audio;
     }
 
     public function getDocument(){
-        return document;
+        return $this->document;
     }
 
     public function getPhoto(){
-        return photo;
+        return $this->photo;
     }
 
     public function getSticker(){
-        return sticker;
+        return $this->sticker;
     }
 
     public function getVideo(){
-        return video;
+        return $this->video;
     }
 
     public function getContact(){
-        return contact;
+        return $this->contact;
     }
 
     public function getLocation(){
-        return location;
+        return $this->location;
     }
 
     public function getVenue(){
-        return venue;
+        return $this->venue;
     }
 
     public function getPinnedMessage(){
-        return pinnedMessage;
+        return $this->pinnedMessage;
     }
 
     public function getNewChatMembers(){
-        return newChatMembers;
+        return $this->newChatMembers;
     }
 
     public function getLeftChatMember(){
-        return leftChatMember;
+        return $this->leftChatMember;
     }
 
     public function getNewChatTitle(){
-        return newChatTitle;
+        return $this->newChatTitle;
     }
 
     public function getNewChatPhoto(){
-        return newChatPhoto;
+        return $this->newChatPhoto;
     }
 
     public function getDeleteChatPhoto(){
-        return deleteChatPhoto;
+        return $this->deleteChatPhoto;
     }
 
     public function getGroupchatCreated(){
-        return groupchatCreated;
+        return $this->groupchatCreated;
     }
 
     public function getReplyToMessage(){
-        return replyToMessage;
+        return $this->replyToMessage;
     }
 
     public function getVoice(){
-        return voice;
+        return $this->voice;
     }
 
     public function getCaption(){
-        return caption;
+        return $this->caption;
     }
 
     public function getSuperGroupCreated(){
-        return superGroupCreated;
+        return $this->superGroupCreated;
     }
 
     public function getChannelChatCreated(){
-        return channelChatCreated;
+        return $this->channelChatCreated;
     }
 
     public function getMigrateToChatId(){
-        return migrateToChatId;
+        return $this->migrateToChatId;
     }
 
     public function getMigrateFromChatId(){
-        return migrateFromChatId;
+        return $this->migrateFromChatId;
     }
 
     public function getForwardFromMessageId(){

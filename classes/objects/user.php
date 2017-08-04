@@ -31,13 +31,5 @@ final class User {
         return $this->languageCode;
     }
 
-    public function toString() {
-        return "User{" +
-            "id=" + $this->id +
-            ", firstName='" + $this->firstName + '\'' +
-            ", lastName='" + $this->lastName + '\'' +
-            ", userName='" + $this->userName + '\'' +
-            ", languageCode='" + $this->languageCode + '\'' +
-            '}';
-    }
+
 }
