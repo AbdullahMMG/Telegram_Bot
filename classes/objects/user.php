@@ -8,6 +8,9 @@ final class User {
     private $userName; ///< Optional. User‘s or bot’s username
     private $languageCode; ///< Optional. IETF language tag of the user's language
 
+    public function __construct(){
+    }
+
     public function getId() {
         return $this->id;
     }
@@ -30,11 +33,11 @@ final class User {
 
     public function toString() {
         return "User{" +
-            "id=" + id +
-            ", firstName='" + firstName + '\'' +
-            ", lastName='" + lastName + '\'' +
-            ", userName='" + userName + '\'' +
-            ", languageCode='" + languageCode + '\'' +
+            "id=" + $this->id +
+            ", firstName='" + $this->firstName + '\'' +
+            ", lastName='" + $this->lastName + '\'' +
+            ", userName='" + $this->userName + '\'' +
+            ", languageCode='" + $this->languageCode + '\'' +
             '}';
     }
 }

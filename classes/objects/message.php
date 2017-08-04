@@ -1,272 +1,237 @@
 <?php
 
-@JsonProperty(MESSAGEID_FIELD)
-    private Integer messageId; ///< Integer	Unique message identifier
-    @JsonProperty(FROM_FIELD)
-    private User from; ///< Optional. Sender, can be empty for messages sent to channels
-    @JsonProperty(DATE_FIELD)
-    private Integer date; ///< Optional. Date the message was sent in Unix time
-    @JsonProperty(CHAT_FIELD)
-    private Chat chat; ///< Conversation the message belongs to
-    @JsonProperty(FORWARDFROM_FIELD)
-    private User forwardFrom; ///< Optional. For forwarded messages, sender of the original message
-    @JsonProperty(FORWARDFROMCHAT_FIELD)
-    private Chat forwardFromChat; ///< Optional. For messages forwarded from a channel, information about the original channel
-    @JsonProperty(FORWARDDATE_FIELD)
-    private Integer forwardDate; ///< Optional. For forwarded messages, date the original message was sent
-    @JsonProperty(TEXT_FIELD)
-    private String text; ///< Optional. For text messages, the actual UTF-8 text of the message
-    /**
-     * Optional. For text messages, special entities like usernames, URLs,
-     * bot commands, etc. that appear in the text
-     */
-    @JsonProperty(ENTITIES_FIELD)
-    private List<MessageEntity> entities;
-    @JsonProperty(AUDIO_FIELD)
-    private Audio audio; ///< Optional. Message is an audio file, information about the file
-    @JsonProperty(DOCUMENT_FIELD)
-    private Document document; ///< Optional. Message is a general file, information about the file
-    @JsonProperty(PHOTO_FIELD)
-    private List<PhotoSize> photo; ///< Optional. Message is a photo, available sizes of the photo
-    @JsonProperty(STICKER_FIELD)
-    private Sticker sticker; ///< Optional. Message is a sticker, information about the sticker
-    @JsonProperty(VIDEO_FIELD)
-    private Video video; ///< Optional. Message is a video, information about the video
-    @JsonProperty(CONTACT_FIELD)
-    private Contact contact; ///< Optional. Message is a shared contact, information about the contact
-    @JsonProperty(LOCATION_FIELD)
-    private Location location; ///< Optional. Message is a shared location, information about the location
-    @JsonProperty(VENUE_FIELD)
-    private Venue venue; ///< Optional. Message is a venue, information about the venue
-    @JsonProperty(PINNED_MESSAGE_FIELD)
-    private Message pinnedMessage; ///< Optional. Specified message was pinned. Note that the Message object in this field will not contain further reply_to_message fields even if it is itself a reply.
-    @JsonProperty(NEWCHATMEMBERS_FIELD)
-    private List<User> newChatMembers; ///< Optional. New members were added to the group or supergroup, information about them (the bot itself may be one of these members)
-    @JsonProperty(LEFTCHATMEMBER_FIELD)
-    private User leftChatMember; ///< Optional. A member was removed from the group, information about them (this member may be bot itself)
-    @JsonProperty(NEWCHATTITLE_FIELD)
-    private String newChatTitle; ///< Optional. A chat title was changed to this value
-    @JsonProperty(NEWCHATPHOTO_FIELD)
-    private List<PhotoSize> newChatPhoto; ///< Optional. A chat photo was change to this value
-    @JsonProperty(DELETECHATPHOTO_FIELD)
-    private Boolean deleteChatPhoto; ///< Optional. Informs that the chat photo was deleted
-    @JsonProperty(GROUPCHATCREATED_FIELD)
-    private Boolean groupchatCreated; ///< Optional. Informs that the group has been created
-    @JsonProperty(REPLYTOMESSAGE_FIELD)
-    private Message replyToMessage;
-    @JsonProperty(VOICE_FIELD)
-    private Voice voice; ///< Optional. Message is a voice message, information about the file
-    @JsonProperty(CAPTION_FIELD)
-    private String caption; ///< Optional. Caption for the document, photo or video, 0-200 characters
-    /**
-     * Optional. Service message: the supergroup has been created.
-     * This field can‘t be received in a message coming through updates,
-     * because bot can’t be a member of a supergroup when it is created.
-     * It can only be found in reply_to_message
-     * if someone replies to a very first message in a directly created supergroup.
-     */
-    @JsonProperty(SUPERGROUPCREATED_FIELD)
-    private Boolean superGroupCreated;
-    /**
-     * Optional. Service message: the channel has been created.
-     * This field can‘t be received in a message coming through updates,
-     * because bot can’t be a member of a channel when it is created.
-     * It can only be found in reply_to_message if someone
-     * replies to a very first message in a channel.
-     */
-    @JsonProperty(CHANNELCHATCREATED_FIELD)
-    private Boolean channelChatCreated;
-    /**
-     * Optional. The group has been migrated to a supergroup with the specified identifier.
-     * This number may be greater than 32 bits and some programming languages
-     * may have difficulty/silent defects in interpreting it.
-     * But it smaller than 52 bits, so a signed 64 bit integer or double-precision
-     * float type are safe for storing this identifier.
-     */
-    @JsonProperty(MIGRATETOCHAT_FIELD)
-    private Long migrateToChatId; ///< Optional. The chat has been migrated to a chat with specified identifier, not exceeding 1e13 by absolute value
-    /**
-     * Optional. The supergroup has been migrated from a group with the specified identifier.
-     * This number may be greater than 32 bits and some programming languages
-     * may have difficulty/silent defects in interpreting it.
-     * But it smaller than 52 bits, so a signed 64 bit integer or double-precision
-     * float type are safe for storing this identifier.
-     */
-    @JsonProperty(MIGRATEFROMCHAT_FIELD)
-    private Long migrateFromChatId; ///< Optional. The chat has been migrated from a chat with specified identifier, not exceeding 1e13 by absolute value
-    @JsonProperty(EDITDATE_FIELD)
-    private Integer editDate; ///< Optional. Date the message was last edited in Unix time
-    @JsonProperty(GAME_FIELD)
-    private Game game; ///< Optional. Message is a game, information about the game
-    @JsonProperty(FORWARDFROMMESSAGEID_FIELD)
-    private Integer forwardFromMessageId; ///< Optional. For forwarded channel posts, identifier of the original message in the channel
-    @JsonProperty(INVOICE_FIELD)
-    private Invoice invoice; ///< Optional. Message is an invoice for a payment, information about the invoice.
-    @JsonProperty(SUCCESSFUL_PAYMENT_FIELD)
-    private SuccessfulPayment successfulPayment; ///< Optional. Message is a service message about a successful payment, information about the payment.
-    @JsonProperty(VIDEO_NOTE_FIELD)
-    private VideoNote videoNote; ///< Optional. Message is a video note, information about the video message
+final class Message
+{
+    private $messageId; ///< Integer	Unique message identifier
+    private $from; ///< Optional. Sender, can be empty for messages sent to channels
+    private $date; ///< Optional. Date the message was sent in Unix time
+    private $chat; ///< Conversation the message belongs to
+    private $forwardFrom; ///< Optional. For forwarded messages, sender of the original message
+    private $forwardFromChat; ///< Optional. For messages forwarded from a channel, information about the original channel
+    private $forwardDate; ///< Optional. For forwarded messages, date the original message was sent
+    private $text; ///< Optional. For text messages, the actual UTF-8 text of the message
+        /**
+         * Optional. For text messages, special entities like usernames, URLs,
+         * bot commands, etc. that appear in the text
+         */
+    private $entities;
+    private $audio; ///< Optional. Message is an audio file, information about the file
+    private $document; ///< Optional. Message is a general file, information about the file
+    private $photo; ///< Optional. Message is a photo, available sizes of the photo
+    private $sticker; ///< Optional. Message is a sticker, information about the sticker
+    private $video; ///< Optional. Message is a video, information about the video
+    private $contact; ///< Optional. Message is a shared contact, information about the contact
+    private $location; ///< Optional. Message is a shared location, information about the location
+    private $venue; ///< Optional. Message is a venue, information about the venue
+    private $pinnedMessage; ///< Optional. Specified message was pinned. Note that the Message object in this field will not contain further reply_to_message fields even if it is itself a reply.
+    private $newChatMembers; ///< Optional. New members were added to the group or supergroup, information about them (the bot itself may be one of these members)
+    private $leftChatMember; ///< Optional. A member was removed from the group, information about them (this member may be bot itself)
+    private $newChatTitle; ///< Optional. A chat title was changed to this value
+    private $newChatPhoto; ///< Optional. A chat photo was change to this value
+    private $deleteChatPhoto; ///< Optional. Informs that the chat photo was deleted
+    private $groupchatCreated; ///< Optional. Informs that the group has been created
+    private $replyToMessage;
+    private $voice; ///< Optional. Message is a voice message, information about the file
+    private $caption; ///< Optional. Caption for the document, photo or video, 0-200 characters
+        /**
+         * Optional. Service message: the supergroup has been created.
+         * This field can‘t be received in a message coming through updates,
+         * because bot can’t be a member of a supergroup when it is created.
+         * It can only be found in reply_to_message
+         * if someone replies to a very first message in a directly created supergroup.
+         */
+    private $superGroupCreated;
+        /**
+         * Optional. Service message: the channel has been created.
+         * This field can‘t be received in a message coming through updates,
+         * because bot can’t be a member of a channel when it is created.
+         * It can only be found in reply_to_message if someone
+         * replies to a very first message in a channel.
+         */
+    private $channelChatCreated;
+        /**
+         * Optional. The group has been migrated to a supergroup with the specified identifier.
+         * This number may be greater than 32 bits and some programming languages
+         * may have difficulty/silent defects in interpreting it.
+         * But it smaller than 52 bits, so a signed 64 bit integer or double-precision
+         * float type are safe for storing this identifier.
+         */
+    private $migrateToChatId; ///< Optional. The chat has been migrated to a chat with specified identifier, not exceeding 1e13 by absolute value
+        /**
+         * Optional. The supergroup has been migrated from a group with the specified identifier.
+         * This number may be greater than 32 bits and some programming languages
+         * may have difficulty/silent defects in interpreting it.
+         * But it smaller than 52 bits, so a signed 64 bit integer or double-precision
+         * float type are safe for storing this identifier.
+         */
+    private $migrateFromChatId; ///< Optional. The chat has been migrated from a chat with specified identifier, not exceeding 1e13 by absolute value
+    private $editDate; ///< Optional. Date the message was last edited in Unix time
+    private $game; ///< Optional. Message is a game, information about the game
+    private $forwardFromMessageId; ///< Optional. For forwarded channel posts, identifier of the original message in the channel
+    private $invoice; ///< Optional. Message is an invoice for a payment, information about the invoice.
+    private $successfulPayment; ///< Optional. Message is a service message about a successful payment, information about the payment.
+    private $videoNote; ///< Optional. Message is a video note, information about the video message
 
-    public Message() {
-super();
+    public function __construct(){
     }
 
-    public Integer getMessageId() {
-        return messageId;
+    public function getMessageId(){
+        return $this->messageId;
     }
 
-    public User getFrom() {
-        return from;
+    public function getFrom(){
+        return $this->from;
     }
 
-    public Integer getDate() {
+    public function getDate(){
         return date;
     }
 
-    public Chat getChat() {
+    public function getChat(){
         return chat;
     }
 
-    public User getForwardFrom() {
+    public function getForwardFrom(){
         return forwardFrom;
     }
 
-    public Integer getForwardDate() {
+    public function getForwardDate(){
         return forwardDate;
     }
 
-    public String getText() {
+    public function getText(){
         return text;
     }
 
-    public List<MessageEntity> getEntities() {
+    public function getEntities(){
         if (entities != null) {
-            entities.forEach(x -> x.computeText(text));
+            entities .forEach(x->x . computeText(text));
         }
         return entities;
     }
 
-    public Audio getAudio() {
+    public function getAudio(){
         return audio;
     }
 
-    public Document getDocument() {
+    public function getDocument(){
         return document;
     }
 
-    public List<PhotoSize> getPhoto() {
+    public function getPhoto(){
         return photo;
     }
 
-    public Sticker getSticker() {
+    public function getSticker(){
         return sticker;
     }
 
-    public Video getVideo() {
+    public function getVideo(){
         return video;
     }
 
-    public Contact getContact() {
+    public function getContact(){
         return contact;
     }
 
-    public Location getLocation() {
+    public function getLocation(){
         return location;
     }
 
-    public Venue getVenue() {
+    public function getVenue(){
         return venue;
     }
 
-    public Message getPinnedMessage() {
+    public function getPinnedMessage(){
         return pinnedMessage;
     }
 
-    public List<User> getNewChatMembers() {
+    public function getNewChatMembers(){
         return newChatMembers;
     }
 
-    public User getLeftChatMember() {
+    public function getLeftChatMember(){
         return leftChatMember;
     }
 
-    public String getNewChatTitle() {
+    public function getNewChatTitle(){
         return newChatTitle;
     }
 
-    public List<PhotoSize> getNewChatPhoto() {
+    public function getNewChatPhoto(){
         return newChatPhoto;
     }
 
-    public Boolean getDeleteChatPhoto() {
+    public function getDeleteChatPhoto(){
         return deleteChatPhoto;
     }
 
-    public Boolean getGroupchatCreated() {
+    public function getGroupchatCreated(){
         return groupchatCreated;
     }
 
-    public Message getReplyToMessage() {
+    public function getReplyToMessage(){
         return replyToMessage;
     }
 
-    public Voice getVoice() {
+    public function getVoice(){
         return voice;
     }
 
-    public String getCaption() {
+    public function getCaption(){
         return caption;
     }
 
-    public Boolean getSuperGroupCreated() {
+    public function getSuperGroupCreated(){
         return superGroupCreated;
     }
 
-    public Boolean getChannelChatCreated() {
+    public function getChannelChatCreated(){
         return channelChatCreated;
     }
 
-    public Long getMigrateToChatId() {
+    public function getMigrateToChatId(){
         return migrateToChatId;
     }
 
-    public Long getMigrateFromChatId() {
+    public function getMigrateFromChatId(){
         return migrateFromChatId;
     }
 
-    public Integer getForwardFromMessageId() {
+    public function getForwardFromMessageId(){
         return forwardFromMessageId;
     }
 
-    public boolean isGroupMessage() {
-        return chat.isGroupChat();
+    public function isGroupMessage(){
+        return chat . isGroupChat();
     }
 
-    public boolean isUserMessage() {
-        return chat.isUserChat();
+    public function isUserMessage(){
+        return chat . isUserChat();
     }
 
-    public boolean isChannelMessage() {
-        return chat.isChannelChat();
+    public function isChannelMessage(){
+        return chat . isChannelChat();
     }
 
-    public boolean isSuperGroupMessage() {
-        return chat.isSuperGroupChat();
+    public function isSuperGroupMessage(){
+        return chat . isSuperGroupChat();
     }
 
-    public Long getChatId() {
-        return chat.getId();
+    public function getChatId(){
+        return chat . getId();
     }
 
-    public boolean hasText() {
-        return text != null && !text.isEmpty();
+    public function hasText(){
+        return text != null && !text . isEmpty();
     }
 
-    public boolean isCommand() {
-        if (hasText() && entities != null) {
+    public function isCommand(){
+        if ($this->hasText() && $this->entities != null) {
             for (MessageEntity entity : entities) {
-                if (entity != null && entity.getOffset() == 0 &&
-                    EntityType.BOTCOMMAND.equals(entity.getType())) {
+                if (entity != null && entity . getOffset() == 0 &&
+                    EntityType . BOTCOMMAND . equals(entity . getType())
+                ) {
                     return true;
                 }
             }
@@ -274,101 +239,101 @@ super();
         return false;
     }
 
-    public boolean hasDocument() {
-        return this.document != null;
+    public function hasDocument(){
+        return this . document != null;
     }
 
-    public boolean isReply() {
-        return this.replyToMessage != null;
+    public function isReply(){
+        return this . replyToMessage != null;
     }
 
-    public boolean hasLocation() {
+    public function hasLocation(){
         return location != null;
     }
 
-    public Chat getForwardFromChat() {
+    public function getForwardFromChat(){
         return forwardFromChat;
     }
 
-    public Integer getEditDate() {
+    public function getEditDate(){
         return editDate;
     }
 
-    public Game getGame() {
+    public function getGame(){
         return game;
     }
 
-    private boolean hasGame() {
+    private function hasGame(){
         return game != null;
     }
 
-    public boolean hasEntities() {
-        return entities != null && !entities.isEmpty();
+    public function hasEntities(){
+        return entities != null && !entities . isEmpty();
     }
 
-    public boolean hasPhoto() {
-        return photo != null && !photo.isEmpty();
+    public function hasPhoto(){
+        return photo != null && !photo . isEmpty();
     }
 
-    public boolean hasInvoice() {
+    public function hasInvoice(){
         return invoice != null;
     }
 
-    public boolean hasSuccessfulPayment() {
+    public function hasSuccessfulPayment(){
         return successfulPayment != null;
     }
 
-    public Invoice getInvoice() {
+    public function getInvoice(){
         return invoice;
     }
 
-    public SuccessfulPayment getSuccessfulPayment() {
+    public function getSuccessfulPayment(){
         return successfulPayment;
     }
 
-    public VideoNote getVideoNote() {
+    public function getVideoNote(){
         return videoNote;
     }
 
-    @Override
-    public String toString() {
-        return "Message{" +
-            "messageId=" + messageId +
-            ", from=" + from +
-            ", date=" + date +
-            ", chat=" + chat +
-            ", forwardFrom=" + forwardFrom +
-            ", forwardFromChat=" + forwardFromChat +
-            ", forwardDate=" + forwardDate +
-            ", text='" + text + '\'' +
-            ", entities=" + entities +
-            ", audio=" + audio +
-            ", document=" + document +
-            ", photo=" + photo +
-            ", sticker=" + sticker +
-            ", video=" + video +
-            ", contact=" + contact +
-            ", location=" + location +
-            ", venue=" + venue +
-            ", pinnedMessage=" + pinnedMessage +
-            ", newChatMembers=" + newChatMembers +
-            ", leftChatMember=" + leftChatMember +
-            ", newChatTitle='" + newChatTitle + '\'' +
-            ", newChatPhoto=" + newChatPhoto +
-            ", deleteChatPhoto=" + deleteChatPhoto +
-            ", groupchatCreated=" + groupchatCreated +
-            ", replyToMessage=" + replyToMessage +
-            ", voice=" + voice +
-            ", caption='" + caption + '\'' +
-            ", superGroupCreated=" + superGroupCreated +
-            ", channelChatCreated=" + channelChatCreated +
-            ", migrateToChatId=" + migrateToChatId +
-            ", migrateFromChatId=" + migrateFromChatId +
-            ", editDate=" + editDate +
-            ", game=" + game +
-            ", forwardFromMessageId=" + forwardFromMessageId +
-            ", invoice=" + invoice +
-            ", successfulPayment=" + successfulPayment +
-            ", videoNote=" + videoNote +
+    public function toString(){
+        return "Message{" .
+            "messageId=" . $this->messageId .
+            ", from=" . $this->from .
+            ", date=" . $this->date .
+            ", chat=" . $this->chat .
+            ", forwardFrom=" . $this->forwardFrom .
+            ", forwardFromChat=" . $this->forwardFromChat .
+            ", forwardDate=" . $this->forwardDate .
+            ", text='" . $this->text . '\'' .
+            ", entities=" . $this->entities .
+            ", audio=" . $this->audio .
+            ", document=" . $this->document .
+            ", photo=" . $this->photo .
+            ", sticker=" . $this->sticker .
+            ", video=" . $this->video .
+            ", contact=" . $this->contact .
+            ", location=" . $this->location .
+            ", venue=" . $this->venue .
+            ", pinnedMessage=" . $this->pinnedMessage .
+            ", newChatMembers=" . $this->newChatMembers .
+            ", leftChatMember=" . $this->leftChatMember .
+            ", newChatTitle='" . $this->newChatTitle . '\'' .
+            ", newChatPhoto=" . $this->newChatPhoto .
+            ", deleteChatPhoto=" . $this->deleteChatPhoto .
+            ", groupchatCreated=" . $this->groupchatCreated .
+            ", replyToMessage=" . $this->replyToMessage .
+            ", voice=" . $this->voice .
+            ", caption='" . $this->caption . '\'' .
+            ", superGroupCreated=" . $this->superGroupCreated .
+            ", channelChatCreated=" . $this->channelChatCreated .
+            ", migrateToChatId=" . $this->migrateToChatId .
+            ", migrateFromChatId=" . $this->migrateFromChatId .
+            ", editDate=" . $this->editDate .
+            ", game=" . $this->game .
+            ", forwardFromMessageId=" . $this->forwardFromMessageId .
+            ", invoice=" . $this->invoice .
+            ", successfulPayment=" . $this->successfulPayment .
+            ", videoNote=" . $this->videoNote .
             '}';
+    }
     }
